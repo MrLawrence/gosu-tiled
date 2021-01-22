@@ -5,6 +5,7 @@ module Gosu
         @window = window
         @data = data
         @options = options
+        @zoom = @options[:zoom] || 1
       end
 
       def visible?
@@ -51,7 +52,7 @@ module Gosu
             target_x = transpose_tile_x(xx, x)
             target_y = transpose_tile_y(yy, y)
             if within_map_range(x + target_x, y + target_y)
-              tilesets.get(tile_at(xx, yy)).draw(target_x, target_y, 0)
+              tilesets.get(tile_at(xx, yy)).draw(target_x, target_y, 0,  @zoom, @zoom)
             end
           end
         end
@@ -80,7 +81,7 @@ module Gosu
           obj_x = obj['x']
           obj_y = obj['y']
           if within_screen_range(obj_x, obj_y)
-            tilesets.get(obj['gid']).draw(obj_x - x, obj_y - y - tile_height, 10)
+            tilesets.get(obj['gid']).draw(obj_x - x, obj_y - y - tile_height, 10, @zoom, @zoom)
           end
         end
       end
@@ -90,11 +91,11 @@ module Gosu
       end
 
       def tile_width
-        @options[:tile_width]
+        @options[:tile_width] * @zoom
       end
 
       def tile_height
-        @options[:tile_height]
+        @options[:tile_height] * @zoom
       end
 
       def map_width
