@@ -11,12 +11,13 @@ module Gosu
         @height = data['height'] * data['tileheight']
         @tilesets = Tilesets.new(data['tilesets'], data_dir)
         zoom = options[:zoom] || 1
+        grid = options[:grid] || false
         @layers = Layers.new(window,
                              data['layers'],
                              width: @width,
                              height: @height,
                              tile_width: data['tilewidth'],
-                             tile_height: data['tileheight'], zoom: zoom)
+                             tile_height: data['tileheight'], zoom: zoom, grid: grid)
       end
 
       def draw(offset_x, offset_y)

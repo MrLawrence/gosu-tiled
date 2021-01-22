@@ -53,6 +53,10 @@ module Gosu
             target_y = transpose_tile_y(yy, y)
             if within_map_range(x + target_x, y + target_y)
               tilesets.get(tile_at(xx, yy)).draw(target_x, target_y, 0,  @zoom, @zoom)
+              if @options[:grid]
+                Gosu.draw_line(target_x, target_y, Gosu::Color.argb(0xff_000000), target_x + tile_width, target_y, Gosu::Color.argb(0xff_000000), 11)
+                Gosu.draw_line(target_x, target_y, Gosu::Color.argb(0xff_000000), target_x, target_y + tile_height, Gosu::Color.argb(0xff_000000), 11)
+              end
             end
           end
         end
